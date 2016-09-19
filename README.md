@@ -17,13 +17,11 @@ Please note that you need a complete installed MSys2 environment with perl insta
 
 NOTE that you can get the following warning:
 
-the shell starting scripts have been unified. Please update your shortcuts to the following targets, otherwise they will STOP WORKING:
+`the shell starting scripts have been unified. Please update your shortcuts to the following targets, otherwise they will STOP WORKING:`
 
-   \* MSYS2_ROOT\\msys2_shell.cmd -mingw32
-
-   \* MSYS2_ROOT\\msys2_shell.cmd -mingw64
-
-   \* MSYS2_ROOT\\msys2_shell.cmd -msys
+`   \* MSYS2_ROOT\\msys2_shell.cmd -mingw32`
+`   \* MSYS2_ROOT\\msys2_shell.cmd -mingw64`
+`   \* MSYS2_ROOT\\msys2_shell.cmd -msys`
 
 6) Therefore if needed update your shortcuts
 
@@ -31,4 +29,4 @@ the shell starting scripts have been unified. Please update your shortcuts to th
 
 8) Install perl with pacman -S --needed --noconfirm mingw-w64-x86_64-perl
 
-If you followed these steps, open the MinGW64 shell and start the installation process with the command perl ./install-perl-Gtk3-mingw64.pl
+If you followed these steps, you can open the MinGW64 shell and start the installation process with the command perl ./install-perl-Gtk3-mingw64.pl

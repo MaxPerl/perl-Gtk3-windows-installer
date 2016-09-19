@@ -1,7 +1,7 @@
 # perl-Gtk3-windows-installer - A Perl/Gtk3 Installation script for Mingw64/MSys2 on Windows
 A script to easily install the perl Gtk3 module in the MinGW64/MSys2 shell on Windows
 ## License and Thanks
-This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself. This software comes with NO WARRANTY of any kind. This script is heavily inspired by the work of Zakariyya Mughal and especially his extraordinary desciption of the installation of curie on Windows.
+This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself. This software comes with NO WARRANTY of any kind. This script is heavily inspired by the work of Zakariyya Mughal and especially his extraordinary desciption of the installation of curie on Windows (see https://project-renard.github.io/doc/development/meeting-log/posts/2016/05/03/windows-build-with-msys2/).
 ## Usage
 Please note that you need a complete installed MSys2 environment with perl installed. Therefore you should do the following steps before running this script:
 

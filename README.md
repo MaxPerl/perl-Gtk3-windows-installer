@@ -17,11 +17,11 @@ Please note that you need a complete installed MSys2 environment with perl insta
 
 NOTE that you can get the following warning:
 
-`the shell starting scripts have been unified. Please update your shortcuts to the following targets, otherwise they will STOP WORKING:`
+    the shell starting scripts have been unified. Please update your shortcuts to the following targets, otherwise they will STOP WORKING:
 
-`   \* MSYS2_ROOT\\msys2_shell.cmd -mingw32`
-`   \* MSYS2_ROOT\\msys2_shell.cmd -mingw64`
-`   \* MSYS2_ROOT\\msys2_shell.cmd -msys`
+    \* MSYS2_ROOT\\msys2_shell.cmd -mingw32
+    \* MSYS2_ROOT\\msys2_shell.cmd -mingw64
+    \* MSYS2_ROOT\\msys2_shell.cmd -msys
 
 6) Therefore if needed update your shortcuts
 

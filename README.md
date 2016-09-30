@@ -30,3 +30,7 @@ NOTE that you can get the following warning:
 8) Install perl with pacman -S --needed --noconfirm mingw-w64-x86_64-perl
 
 If you followed these steps, you can open the MinGW64 shell and start the installation process with the command perl ./install-perl-Gtk3-mingw64.pl
+
+## Known issues
+If you want also to output something on the terminal, you have to autoflush STDOUT and STDERR with "select((select(STDERR), $| = 1)[0]);
+select((select(STDOUT), $| = 1)[0]);" (seems to be a bug in mintyy module of MinGW64...)

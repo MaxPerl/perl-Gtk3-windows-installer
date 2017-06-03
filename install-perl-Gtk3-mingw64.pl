@@ -20,13 +20,6 @@ mkdir("$build_dir") or die "Could not create the build directory: $! \n Please r
 
 print_welcome_page();
 
-print "Please give the Path to your msys2 environment [default: C:\\msys64] \n";
-my $path = <STDIN>;
-$path =~ s/\\/\\\\/;
-chomp $path;
-$path = "C:\\msys64" unless ($path);
-# Lösche "\" am Ende
-$path =~ s/\\+$//;
 
 print "*----------------------------------------\n";
 print "* INSTALLING THE BUILD TOOLCHAIN \n";
@@ -48,10 +41,9 @@ print "* INSTALLING PERL DEPENDENCIES \n";
 print "*----------------------------------------\n";
 print "Running pl2bat on pl2bat";
 my $pl2bat = `which pl2bat`;
-$pl2bat =~ s/\//\\/g;
-$pl2bat = $path . $pl2bat;
+$pl2bat = `cygpath -ma $pl2bat`;
 $exitcode = system("perl $pl2bat $pl2bat");
-warn "    [FAIL]\n", $exitcode/256, ": ERROR at running pl2bat: $!\n" if ($exitcode != 0);
+die "    [FAIL]\n", $exitcode/256, ": ERROR at running pl2bat: $!\n" if ($exitcode != 0);
 print "    [OK]\n";
 
 print "Installing App::cpanminus";
@@ -127,8 +119,7 @@ sub install_prereq_module {
 
 sub make_file_hack {
 	my $libs;
-	my $unix_style_path = $path;
-	$unix_style_path =~ s/^.:\\//;
+	
 	open (MAKE, "perl Makefile.PL verbose 2>> $script_dir/error.log |");
 	while (my $line = <MAKE>) {
 		if ($line =~ m/^\s* LIBS =>/) {
@@ -146,11 +137,11 @@ sub make_file_hack {
 	shift @libs;
 
 	foreach my $element (@libs) {
-		if ( $element =~ m/C:\/$unix_style_path\/mingw64\/lib\s+/ ) {
+		if ( $element =~ m/\/mingw64\/lib\s+/ ) {
 			$element = ":nosearch -L$element";
 		}
 		# Hack for Glib::Object::Introspection
-		elsif ( $element =~ m/C:\/$unix_style_path\/mingw64\/lib\/\.\.\/lib\s+/ ) {
+		elsif ( $element =~ m/\/mingw64\/lib\/\.\.\/lib\s+/ ) {
 			$element = ":nosearch -L$element";
 		} 
 		else {
@@ -243,12 +234,19 @@ sub print_welcome_page {
 
 # With this function you can easyils install the perl module XML::Parser::Expat
 # This is NOT necessary for installing the perl/Gtk3 module and usually superfluous
-# But for installing "curie" (whose installation process was the inspiration for this script) # this would be necessary, so that this function is still here for compatibility reasons
+# But for installing "curie" (whose installation process was the inspiration for this script) 
+# this would be necessary, so that this function is still here for compatibility reasons
 sub install_xml_parser_expat {
 	my $module = "XML::Parser::Expat";
 	print "*----------------------------------------\n";
 	print "* INSTALLING \U$module \n";
 	print "*----------------------------------------\n";
+
+	print "Please give the Path to your msys2 environment [default: C:/msys64] \n";
+	my $path = <STDIN>;
+	chomp $path;
+	$path = `cygpath -ma $path`;
+	$path =~ s/\/$//;
 
 	my $info = `cpanm --info $module`;
 	chomp $info;
@@ -270,7 +268,7 @@ sub install_xml_parser_expat {
 
 	print "Hacking Makefile.PL\n";
 	chdir("$build_dir/$dirname") or die "Could not change to $build_dir/$dirname\n";
-	system("perl ./Makefile.PL EXPATLIBPATH=\"$path\\mingw64\\lib\" EXPATINCPATH=\"$path\\mingw64\\include\" >> $script_dir/install.log 2>> $script_dir/error.log");
+	system("perl ./Makefile.PL EXPATLIBPATH=\"$path\/mingw64\/lib\" EXPATINCPATH=\"$path\/mingw64\/include\" >> $script_dir/install.log 2>> $script_dir/error.log");
 	print "Hack completed    [OK]\n";
 	
 	print "Building $module";

@@ -8,7 +8,7 @@ use POSIX qw(:sys_wait_h);
 use Data::Dumper;
 use Getopt::Std;
 
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 select((select(STDERR),$| = 1)[0]);
 select((select(STDOUT),$| = 1)[0]);

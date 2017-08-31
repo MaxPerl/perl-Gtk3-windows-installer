@@ -99,7 +99,7 @@ create_archive() {
   # remove .a files not needed for the installer
   find ${_builddir} -name "*.a" -exec rm -f {} \;
   # remove unneeded binaries
-  #find ${_builddir}/mingw${_bitness} -not -name "g*.exe" -name "*.exe" -exec rm -f {} \;
+  find ${_builddir}/mingw${_bitness} -not -name "g*.exe" -not -name "perl*.exe" -name "*.exe" -exec rm -f {} \;
   rm -rf ${_builddir}/mingw${_bitness}/bin/py*
   rm -rf ${_builddir}/mingw${_bitness}/bin/*-config
   # remove other useless folders
